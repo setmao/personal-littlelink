@@ -26,3 +26,15 @@ resource "google_storage_default_object_access_control" "littlelink_public_read"
   role   = "READER"
   entity = "allUsers"
 }
+
+data "google_iam_policy" "editor" {
+  binding {
+    role = "roles/storage.objectUser"
+    members = var.gcs_editor
+  }
+}
+
+resource "google_storage_bucket_iam_policy" "policy" {
+  bucket = google_storage_bucket.littlelink.name
+  policy_data = data.google_iam_policy.editor.policy_data
+}
