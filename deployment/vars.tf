@@ -17,3 +17,8 @@ variable "bucket_location" {
   type = string
   description = "bucket location"
 }
+
+variable "gcs_editor" {
+  type = list(string)
+  description = "GCS editor"
+}
